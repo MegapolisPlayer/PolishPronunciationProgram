@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ćwiczenie polskiej wymowy "nosówek" ą oraz ę</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Online ćwiczenie polskiej wymowy 'nosówek' ą oraz ę.">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<h1>Trener polskiej wymowy</h1>
+		<h3>Polish pronuncation training program</h3>
+		<p>(c) Martin/MegapolisPlayer, 2025; CC-BY-SA 4.0 list of words from
+			<a href="https://pl.wiktionary.org/wiki/Indeks:Polski_-_Najpopularniejsze_s%C5%82owa_1-10000_wersja_Jerzego_Kazojcia">
+				Wiktionary
+			</a>
+		</p>
+
+		<div id="main">
+			<div id="main-inside">
+				<h3>
+					<span id="word">
+						Word will be shown here.
+					</span>
+				</h3>
+			</div>
+			<div>
+				<span id="correct"></span>
+				<br>
+				<span id="next">
+					<button class="special" disabled onclick="wordNext()">Next word</button>
+				</span>
+				<br>
+				<span id="aaa">
+					<button class="special" onclick="wordCheck('A')" disabled>A: [o<sup>w</sup>]</button>
+					<button class="special" onclick="wordCheck('B')" disabled>B: [o<sup>w</sup>]</button>
+					<button class="special" onclick="wordCheck('C')" disabled>C: [om]</button>
+					<button class="special" onclick="wordCheck('D')" disabled>D: [on]</button>
+					<button class="special" onclick="wordCheck('E')" disabled>E: [oń]</button>
+				</span>
+				<br>
+				<span id="eee">
+					<button class="special" onclick="wordCheck('A')" disabled>A: [e]</button>
+					<button class="special" onclick="wordCheck('B')" disabled>B: [e<sup>w</sup>]</button>
+					<button class="special" onclick="wordCheck('C')" disabled>C: [em]</button>
+					<button class="special" onclick="wordCheck('D')" disabled>D: [en]</button>
+					<button class="special" onclick="wordCheck('E')" disabled>E: [eń]</button>
+				</span>
+				<br>
+				<button onclick="openInWiktionary()">Find word in Wiktionary</button>
+				<button onclick="openInWSJP()">Find word in WSJP</button>
+				<button onclick="openInCambridge()">Find word in Cambridge</button>
+			</div>
+		</div>
+
+		<hr>
+		<h3>Ą and Ę pronunciation rules</h3>
+		<p>
+			<ol type="A">
+				<li>
+					Before l, ł or at end of word: <b>ą is [o<sup>w</sup>], ę is [e]</b>
+				</li>
+				<li>
+					Before f, w, s, z, sz, ż, rz, ś, ź, ch: <b>ą is [o<sup>w</sup>], ę is [e<sup>w</sup>]</b>
+				</li>
+				<li>
+					Before b, p: <b>ą is [om], ę is [em]</b>
+				</li>
+				<li>
+					Before k, g, t, d, c, dz, cz: <b>ą is [on], ę is [en]</b>
+				</li>
+				<li>
+					Before ć, dź: <b>ą is [oń], ę is [eń]</b>
+				</li>
+			</ol>
+		</p>
+
+		<hr>
+		<button onclick="wordLoadCustom()">Load different words</button>
+		<button onclick="wordInit()">Reload original</button>
+
+		<script src="script.js"></script>
+	</body>
+</html>
