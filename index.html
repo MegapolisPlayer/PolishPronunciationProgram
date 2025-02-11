@@ -16,6 +16,12 @@
 			</a>
 		</p>
 
+		<hr>
+		<button onclick="wordLoadCustom()">Load different words</button>
+		<button onclick="wordLoadAE()">Load words with ą and ę</button>
+		<button onclick="wordInit()">Reload original</button>
+		<hr>
+
 		<div id="main">
 			<div id="main-inside">
 				<h3>
@@ -33,23 +39,26 @@
 				<br>
 				<span id="aaa">
 					<button class="special" onclick="wordCheck('A')" disabled>A: [o<sup>w</sup>]</button>
-					<button class="special" onclick="wordCheck('B')" disabled>B: [o<sup>w</sup>]</button>
-					<button class="special" onclick="wordCheck('C')" disabled>C: [om]</button>
-					<button class="special" onclick="wordCheck('D')" disabled>D: [on]</button>
-					<button class="special" onclick="wordCheck('E')" disabled>E: [oń]</button>
+					<button class="special" onclick="wordCheck('B')" disabled>B: [o]</button>
+					<button class="special" onclick="wordCheck('C')" disabled>C: [o<sup>w</sup>]</button>
+					<button class="special" onclick="wordCheck('D')" disabled>D: [om]</button>
+					<button class="special" onclick="wordCheck('E')" disabled>E: [on]</button>
+					<button class="special" onclick="wordCheck('F')" disabled>F: [oń]</button>
 				</span>
 				<br>
 				<span id="eee">
 					<button class="special" onclick="wordCheck('A')" disabled>A: [e]</button>
-					<button class="special" onclick="wordCheck('B')" disabled>B: [e<sup>w</sup>]</button>
-					<button class="special" onclick="wordCheck('C')" disabled>C: [em]</button>
-					<button class="special" onclick="wordCheck('D')" disabled>D: [en]</button>
-					<button class="special" onclick="wordCheck('E')" disabled>E: [eń]</button>
+					<button class="special" onclick="wordCheck('B')" disabled>B: [e]</button>
+					<button class="special" onclick="wordCheck('C')" disabled>C: [e<sup>w</sup>]</button>
+					<button class="special" onclick="wordCheck('D')" disabled>D: [em]</button>
+					<button class="special" onclick="wordCheck('E')" disabled>E: [en]</button>
+					<button class="special" onclick="wordCheck('F')" disabled>F: [eń]</button>
 				</span>
 				<br>
 				<button onclick="openInWiktionary()">Find word in Wiktionary</button>
 				<button onclick="openInWSJP()">Find word in WSJP</button>
 				<button onclick="openInCambridge()">Find word in Cambridge</button>
+				<button onclick="openInSeznam()">Find word in Seznam</button>
 			</div>
 		</div>
 
@@ -58,7 +67,10 @@
 		<p>
 			<ol type="A">
 				<li>
-					Before l, ł or at end of word: <b>ą is [o<sup>w</sup>], ę is [e]</b>
+					At end of word: <b>ą is [o<sup>w</sup>], ę is [e]</b>
+				</li>
+				<li>
+					Before l, ł: <b>ą is [o], ę is [e<sup>w</sup>]</b>
 				</li>
 				<li>
 					Before f, w, s, z, sz, ż, rz, ś, ź, ch: <b>ą is [o<sup>w</sup>], ę is [e<sup>w</sup>]</b>
@@ -76,8 +88,12 @@
 		</p>
 
 		<hr>
-		<button onclick="wordLoadCustom()">Load different words</button>
-		<button onclick="wordInit()">Reload original</button>
+		<h3>Controls</h3>
+		<p>
+			If you don't want to use the buttons: 
+			Press letters A-F or numbers 1-6 on your keyboard to answer.
+			Press space to go to next word.
+		</p>
 
 		<script src="script.js"></script>
 	</body>

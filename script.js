@@ -2,6 +2,7 @@ let wordsList = [];
 let currentWordId = 0;
 
 let splitWord = [];
+let wordAnswerLetters = [];
 let wordAnswers = [];
 let wordAnswerId = 0;
 
@@ -23,9 +24,16 @@ function openInCambridge() {
 	"_blank");
 }
 
+function openInSeznam() {
+	window.open(
+	"https://slovnik.seznam.cz/preklad/polsky_cesky/"+wordsList[currentWordId],
+	"_blank");
+}
+
 //get random word not equal to current
 function wordNext() {
 	splitWord = [];
+	wordAnswerLetters = [];
 	wordAnswers = [];
 	wordAnswerId = 0;
 
@@ -36,6 +44,7 @@ function wordNext() {
 	currentWordId = Math.trunc(Math.random()*wordsList.length);
 
 	splitWord = wordsList[currentWordId].split(/(ą|ę)/);
+	wordAnswerLetters = splitWord.filter((v) => { return v == 'ą' || v == 'ę'; });
 	console.log(splitWord);
 
 	let elem = document.getElementById("word");
@@ -43,9 +52,11 @@ function wordNext() {
 	let addedFirstElem = false;
 	splitWord.forEach((s, i, a) => {
 		if(s === 'ą' || s === 'ę') {
-			addedFirstElem = true;
-			if(s == 'ą') document.getElementById("aaa").style.setProperty("display", "block");
-			else if(s == 'ę') document.getElementById("eee").style.setProperty("display", "block");
+			if(!addedFirstElem) {
+				if(s == 'ą') document.getElementById("aaa").style.setProperty("display", "block");
+				else if(s == 'ę') document.getElementById("eee").style.setProperty("display", "block");
+				addedFirstElem = true;
+			}
 
 			let letterElem = document.createElement('span');
 			letterElem.id = "wordLetter";
@@ -56,6 +67,20 @@ function wordNext() {
 			if(i == splitWord.length-1) {
 				//at end: A
 				wordAnswers.push('A');
+			}
+			else if(
+				splitWord[i+1].startsWith('l') ||
+				splitWord[i+1].startsWith('ł')
+			) {
+				wordAnswers.push('B')
+			}
+			
+			else if(
+				splitWord[i+1].startsWith('ć') ||
+				splitWord[i+1].startsWith('ci') ||
+				splitWord[i+1].startsWith('dż')
+			) {
+				wordAnswers.push('F')
 			}
 			else if(
 				splitWord[i+1].startsWith('f') ||
@@ -69,13 +94,13 @@ function wordNext() {
 				splitWord[i+1].startsWith('ź') ||
 				splitWord[i+1].startsWith('ch')
 			) {
-				wordAnswers.push('B')
+				wordAnswers.push('C')
 			}
 			else if(
 				splitWord[i+1].startsWith('b') ||
 				splitWord[i+1].startsWith('p')
 			) {
-				wordAnswers.push('C')
+				wordAnswers.push('D')
 			}
 			else if(
 				splitWord[i+1].startsWith('k') ||
@@ -85,12 +110,6 @@ function wordNext() {
 				splitWord[i+1].startsWith('c') ||
 				splitWord[i+1].startsWith('dz') ||
 				splitWord[i+1].startsWith('cz')
-			) {
-				wordAnswers.push('D')
-			}
-			else if(
-				splitWord[i+1].startsWith('ć') ||
-				splitWord[i+1].startsWith('dż')
 			) {
 				wordAnswers.push('E')
 			}
@@ -104,6 +123,8 @@ function wordNext() {
 }
 
 function wordCheck(category) {
+	if(wordAnswers.length == 0) return;
+
 	let elem = document.getElementById("correct");
 	if(wordAnswers[wordAnswerId] == category) {
 		elem.style.setProperty("color", "green");
@@ -114,13 +135,20 @@ function wordCheck(category) {
 		elem.textContent = "Niestety ta odpowiedż jest błędna. (Sadly this answer is wrong.)\nCorrect: "+wordAnswers[wordAnswerId];
 	}
 
+	document.getElementById("aaa").style.setProperty("display", "none");
+	document.getElementById("eee").style.setProperty("display", "none");
+
 	wordAnswerId++;
-	
-	//disable all except next word
+
 	if(wordAnswerId >= wordAnswers.length) { 
-		document.getElementById("aaa").style.setProperty("display", "none");
-		document.getElementById("eee").style.setProperty("display", "none");
+		return;
 	}
+
+	if(wordAnswerLetters[wordAnswerId] == 'ą') 
+		document.getElementById("aaa").style.setProperty("display", "block");
+	else if(wordAnswerLetters[wordAnswerId] == 'ę')
+		document.getElementById("eee").style.setProperty("display", "block");
+		
 }
 
 function wordReset() {
@@ -150,6 +178,18 @@ function wordInit() {
 	request.send();
 }
 
+function wordLoadAE() {
+	wordReset();
+
+	console.log("Loading AE...")
+	let request = new XMLHttpRequest();
+	request.addEventListener("loadend", (e) => {
+		wordMakeList(e.target.responseText)
+	});
+	request.open("GET", "aande.txt");
+	request.send();
+}
+
 function wordLoadCustom() {
 	wordReset();
 
@@ -167,6 +207,43 @@ function wordLoadCustom() {
 
 	input.click();
 }
+
+window.addEventListener("keyup", (e) => {
+	let k = e.key.toUpperCase();
+	switch(k) {
+		case('A'):
+		case('B'):
+		case('C'):
+		case('D'):
+		case('E'):
+		case('F'):
+			wordCheck(k);
+			break;
+
+		case('1'):
+			wordCheck('A');
+			break;
+		case('2'):
+			wordCheck('B');
+			break;
+		case('3'):
+			wordCheck('C');
+			break;
+		case('4'):
+			wordCheck('D');
+			break;
+		case('5'):
+			wordCheck('E');
+			break;
+		case('6'):
+			wordCheck('F');
+			break;
+
+		case(' '):
+			wordNext();
+			break;
+	}
+});
 
 wordInit();
 

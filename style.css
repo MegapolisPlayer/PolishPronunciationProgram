@@ -1,5 +1,14 @@
 html, body {
 	background-color: #aaaaaa;
+	text-align: center;
+}
+
+button {
+	padding: 10px;
+}
+
+ol {
+	list-style-position: inside;
 }
 
 #main {
@@ -22,6 +31,7 @@ html, body {
 #word {
 	color: black;
 }
+
 #wordLetter {
 	color: darkred;
 	text-decoration: underline;
