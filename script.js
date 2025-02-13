@@ -43,7 +43,7 @@ function wordNext() {
 
 	currentWordId = Math.trunc(Math.random()*wordsList.length);
 
-	splitWord = wordsList[currentWordId].split(/(ą|ę)/);
+	splitWord = wordsList[currentWordId].split(/(ą|ę)/).filter(v => v);
 	wordAnswerLetters = splitWord.filter((v) => { return v == 'ą' || v == 'ę'; });
 	console.log(splitWord);
 
@@ -160,8 +160,7 @@ function wordReset() {
 }
 
 function wordMakeList(text) {
-	wordsList = text.split(' ');
-	wordsList.pop();
+	wordsList = text.split(' ').filter(v => v);
 	console.log(wordsList);
 	wordNext();
 }
